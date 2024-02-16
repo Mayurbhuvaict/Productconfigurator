@@ -1,0 +1,84 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <!-- start Registration of plugin configurator entities-->
+        <service id="NwgncyProductConfigurator\Core\Content\ProductConfigurator\ProductConfiguratorDefinition">
+            <tag name="shopware.entity.definition" entity="product_configurator"/>
+        </service>
+
+         <service id="NwgncyProductConfigurator\Core\Content\ProductConfigurator\Aggregate\ProductConfiguratorTranslation\ProductConfiguratorTranslationDefinition">
+            <tag name="shopware.entity.definition" entity="prod_conf_tran"/>
+        </service>
+        <!-- end Registration of plugin configurator entities-->
+
+        <!--  STEP 1 start Registration of plugin configurator form entities -->
+        <service id="NwgncyProductConfigurator\Core\Content\ProductConfigurator\Aggregate\ProductConfiguratorForm\ProductConfiguratorFormDefinition">
+            <tag name="shopware.entity.definition" entity="prod_conf_form"/>
+        </service>
+
+         <service id="NwgncyProductConfigurator\Core\Content\ProductConfigurator\Aggregate\ProductConfiguratorForm\Aggregate\ProductConfiguratorFormTranslation\ProductConfiguratorFormTranslationDefinition">
+            <tag name="shopware.entity.definition" entity="prod_conf_form_tran"/>
+        </service>
+        <!-- STEP 1 end Registration of plugin configurator form entities -->
+
+        <!--  STEP 2 start Registration of plugin configurator material entities -->
+        <service id="NwgncyProductConfigurator\Core\Content\ProductConfigurator\Aggregate\ProductConfiguratorMaterial\ProductConfiguratorMaterialDefinition">
+            <tag name="shopware.entity.definition" entity="prod_conf_mat"/>
+        </service>
+
+         <service id="NwgncyProductConfigurator\Core\Content\ProductConfigurator\Aggregate\ProductConfiguratorMaterial\Aggregate\ProductConfiguratorMaterialTranslation\ProductConfiguratorMaterialTranslationDefinition">
+            <tag name="shopware.entity.definition" entity="prod_conf_mat_trans"/>
+        </service>
+        <!-- STEP 2 end Registration of plugin configurator material entities -->
+
+        <!--  STEP 3 start Registration of plugin configurator coating entities -->
+        <service id="NwgncyProductConfigurator\Core\Content\ProductConfigurator\Aggregate\ProductConfiguratorCoating\ProductConfiguratorCoatingDefinition">
+            <tag name="shopware.entity.definition" entity="prod_conf_coat"/>
+        </service>
+        <!-- STEP 3 end Registration of plugin configurator coating entities -->
+
+        <!--  STEP 4 start Registration of plugin configurator dimension entities -->
+        <service id="NwgncyProductConfigurator\Core\Content\ProductConfigurator\Aggregate\ProductConfiguratorDimension\ProductConfiguratorDimensionDefinition">
+            <tag name="shopware.entity.definition" entity="prod_conf_dime"/>
+        </service>
+
+         <service id="NwgncyProductConfigurator\Core\Content\ProductConfigurator\Aggregate\ProductConfiguratorDimension\Aggregate\ProductConfiguratorDimensionTranslation\ProductConfiguratorDimensionTranslationDefinition">
+            <tag name="shopware.entity.definition" entity="prod_conf_dime_tran"/>
+        </service>
+        <!-- STEP 4 end Registration of plugin configurator dimension entities -->
+
+        <!--  STEP 5 start Registration of plugin configurator Lock entities -->
+        <service id="NwgncyProductConfigurator\Core\Content\ProductConfigurator\Aggregate\ProductConfiguratorLock\ProductConfiguratorLockDefinition">
+            <tag name="shopware.entity.definition" entity="prod_conf_lock"/>
+        </service>
+
+         <service id="NwgncyProductConfigurator\Core\Content\ProductConfigurator\Aggregate\ProductConfiguratorLock\Aggregate\ProductConfiguratorLockTranslation\ProductConfiguratorLockTranslationDefinition">
+            <tag name="shopware.entity.definition" entity="prod_conf_lock_tran"/>
+        </service>
+        <!-- STEP 5 end Registration of plugin configurator Lock entities -->
+
+         <!--  STEP 6 start Registration of plugin configurator Accesories entities -->
+        <service id="NwgncyProductConfigurator\Core\Content\ProductConfigurator\Aggregate\ProductConfiguratorAccessories\ProductConfiguratorAccessoriesDefinition">
+            <tag name="shopware.entity.definition" entity="prod_conf_acce"/>
+        </service>
+
+         <service id="NwgncyProductConfigurator\Core\Content\ProductConfigurator\Aggregate\ProductConfiguratorAccessories\Aggregate\ProductConfiguratorAccessoriesTranslation\ProductConfiguratorAccessoriesTranslationDefinition">
+            <tag name="shopware.entity.definition" entity="prod_conf_acce_tran"/>
+        </service>
+        <!-- STEP 6 end Registration of plugin configurator Accesories entities -->
+
+        <!-- start Registration of extension service-->
+        <service id="NwgncyProductConfigurator\Core\Content\Extension\MediaExtension">
+            <tag name="shopware.entity.extension"/>
+        </service>
+
+        <service id="NwgncyProductConfigurator\Core\Content\Extension\LanguageExtension">
+            <tag name="shopware.entity.extension"/>
+        </service>
+        <!-- end Registration of extension service-->
+    </services>
+</container>

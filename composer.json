@@ -1,0 +1,27 @@
+{
+    "name": "nwgncy-product-configurator/nwgncy-product-configurator",
+    "description": "nwgncy-product-configurator/nwgncy-product-configurator",
+    "type": "shopware-platform-plugin",
+    "version": "1.0.0",
+    "license": "MIT",
+    "require": {
+        "shopware/core": "~6.6.0"
+    },
+    "extra": {
+        "shopware-plugin-class": "NwgncyProductConfigurator\\NwgncyProductConfigurator",
+        "label": {
+            "de-DE": "Newwwagency Produktkonfigurator",
+            "en-GB": "Newwwagency Product Configurator"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "NwgncyProductConfigurator\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "NwgncyProductConfigurator\\Tests\\": "tests/"
+        }
+    }
+}
