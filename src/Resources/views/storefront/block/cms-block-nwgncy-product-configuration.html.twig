@@ -1,0 +1,11 @@
+{% block block_nwgncy_product_configuration %}
+
+    {% set element = block.slots.getSlot('productConfiguration') %}
+    {% set columns = 1 %}
+
+    <div class="col-12" data-cms-element-id="{{ element.id }}">
+        {% block block_nwgncy_product_configuration_form_inner %}
+            {% sw_include "@Storefront/storefront/element/cms-element-" ~ element.type ~ ".html.twig" %}
+        {% endblock %}
+    </div>
+{% endblock %}

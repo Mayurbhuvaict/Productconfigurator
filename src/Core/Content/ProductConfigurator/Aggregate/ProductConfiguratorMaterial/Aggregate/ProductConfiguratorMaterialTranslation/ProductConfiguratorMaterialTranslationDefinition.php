@@ -9,7 +9,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
 
 class ProductConfiguratorMaterialTranslationDefinition extends EntityTranslationDefinition
 {
-    public const ENTITY_NAME = 'prod_conf_mat_trans';
+    public const ENTITY_NAME = 'prod_conf_mat_translation';
 
     public function getEntityName(): string
     {

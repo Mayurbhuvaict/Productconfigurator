@@ -9,7 +9,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
 
 class ProductConfiguratorDimensionTranslationDefinition extends EntityTranslationDefinition
 {
-    public const ENTITY_NAME = 'prod_conf_dime_tran';
+    public const ENTITY_NAME = 'prod_conf_dime_translation';
 
     public function getEntityName(): string
     {

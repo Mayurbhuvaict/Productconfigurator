@@ -1,0 +1,52 @@
+{
+    "nwgncy-product-configurator": {
+        "general": {
+            "mainMenuItemGeneral": "Product Configurator",
+            "descriptionTextModule": "Product Configurator"
+        },
+        "detail": {
+            "imageLabel" : "Image",
+            "step": {
+                "one" : {
+                    "cardTitle": "Step one Title",
+                    "cardStepOneDesignType": "Step one design type",
+                    "titleLabel" : "Title",
+                    "SubTitleLabel" : "Sub-title",
+                    "image": "Image",
+                    "description" : "Description",
+                    "toolTipText": "Tool tip text",
+                    "minHeight": "Min. Height",
+                    "minWidth": "Min. Width",
+                    "minDepth": "Min. Depth",
+                    "addDesignType": "Add Design type"
+                },
+                "two" : {
+                    "stepTwoCardTitle": "Step two Title",
+                    "cardStepTwoDesignType": "Step Two Material",
+                    "addMaterial" : "Add Material"
+                },
+                "three" : {
+                    "stepThreeCardTitle": "Step three Title",
+                    "cardStepThreeDesignType": "Step three Coating",
+                    "switchWithoutCoating": "Without Coating",
+                    "switchPowderCoating":"Powder coating",
+                    "switchWetPainting": "Wet painting"
+                },
+                "four" : {
+                    "stepFourCardTitle": "Step Four Dimensions"
+                },
+                "five" : {
+                    "stepFiveCardTitle": "Step Five Title",
+                    "cardStepFiveClosure" : "Step five Closure",
+                    "addClosure" : "Add Closure"
+                },
+                "six" : {
+                    "stepSixCardTitle" : "Step Six Accessories"
+                },
+                "seven" : {
+                    "stepSevenCardTitle": "Step Seven Notes, sketches & photos"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,27 @@
+{
+  "nwgncy-product-configuration": {
+    "detail": {
+      "withoutCoating": "without Coating",
+      "powderCoating": "powder Coating",
+      "wetPainting": "wet Painting",
+      "heightDimensions": "Height (H)",
+      "widthDimensions": "Width (W)",
+      "depthDimensions": "Depth (D)",
+      "heightWidthDepthPlaceHolder": "220 mm",
+      "unsureExactDimensionsLabel": "I am still unsure about the exact dimensions.",
+      "unsureExactDimensionsParagraph": "Don't worry, we will be happy to advise you.",
+      "withoutCoatingStainedLabel": "Stained",
+      "withoutCoatingBrushedLabel": "Brushed",
+      "withoutCoatingUnchallengedLabel": "Unchallenged",
+      "powderCoatingOptionOne": "RAL 9005",
+      "powderCoatingOptionTwo": "RAL 7016",
+      "powderCoatingOptionThree": "RAL 9010",
+      "powderCoatingSpecialColorOne": "RAL 9005",
+      "powderCoatingSpecialColorTwo": "RAL 7016",
+      "powderCoatingSpecialColorThree": "RAL 9010",
+      "powderCoatingSpecialColorFour": "RAL 9011",
+      "wetPaintingPaintOptional": "Paint | Optional",
+      "wetPaintingPaintOptionalHintText": "Enter the color code of your desired paint finish."
+    }
+  }
+}

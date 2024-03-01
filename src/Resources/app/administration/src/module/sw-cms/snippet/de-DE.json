@@ -1,0 +1,20 @@
+{
+  "sw-cms": {
+    "blocks": {
+      "form": {
+        "label" : "Formular zur Produktkonfiguration",
+        "name" : "Formular zur Produktkonfiguration",
+        "submit" : "Einreichen"
+      }
+    },
+    "elements": {
+      "form": {
+        "name" : "Formular Produktkonfiguration"
+      }
+    },
+    "productConfiguration": {
+      "title" : "Konfigurieren Sie Ihre Staubox nach Ihren Wünschen.",
+      "subtitle": "Zur maßgeschneiderten Staubox in nur 7 Schritten."
+    }
+  }
+}

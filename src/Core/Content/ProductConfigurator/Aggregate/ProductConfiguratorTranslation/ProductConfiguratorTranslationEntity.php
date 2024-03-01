@@ -22,6 +22,66 @@ class ProductConfiguratorTranslationEntity extends Entity
     protected $subtitle;
 
     /**
+     * @var string|null
+     */
+    protected $titleMaterial;
+
+    /**
+     * @var string|null
+     */
+    protected $subtitleMaterial;
+
+    /**
+     * @var string|null
+     */
+    protected $titleCoating;
+
+    /**
+     * @var string|null
+     */
+    protected $subtitleCoating;
+
+    /**
+     * @var string|null
+     */
+    protected $titleDimensions;
+
+    /**
+     * @var string|null
+     */
+    protected $subtitleDimensions;
+
+    /**
+     * @var string|null
+     */
+    protected $titleClosure;
+
+    /**
+     * @var string|null
+     */
+    protected $subtitleClosure;
+
+    /**
+     * @var string|null
+     */
+    protected $titleAccessories;
+
+    /**
+     * @var string|null
+     */
+    protected $subtitleAccessories;
+
+    /**
+     * @var string|null
+     */
+    protected $titleNotes;
+
+    /**
+     * @var string|null
+     */
+    protected $subtitleNotes;
+
+    /**
      * @var \DateTimeInterface
      */
     protected $createdAt;
@@ -51,7 +111,7 @@ class ProductConfiguratorTranslationEntity extends Entity
      */
     protected $language;
 
-    public function getTitle(): ?string
+    public function getTitle(): string
     {
         return $this->title;
     }
@@ -71,7 +131,127 @@ class ProductConfiguratorTranslationEntity extends Entity
         $this->subtitle = $subtitle;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getTitleMaterial(): ?string
+    {
+        return $this->titleMaterial;
+    }
+
+    public function setTitleMaterial(?string $titleMaterial): void
+    {
+        $this->titleMaterial = $titleMaterial;
+    }
+
+    public function getSubtitleMaterial(): ?string
+    {
+        return $this->subtitleMaterial;
+    }
+
+    public function setSubtitleMaterial(?string $subtitleMaterial): void
+    {
+        $this->subtitleMaterial = $subtitleMaterial;
+    }
+
+    public function getTitleCoating(): ?string
+    {
+        return $this->titleCoating;
+    }
+
+    public function setTitleCoating(?string $titleCoating): void
+    {
+        $this->titleCoating = $titleCoating;
+    }
+
+    public function getSubtitleCoating(): ?string
+    {
+        return $this->subtitleCoating;
+    }
+
+    public function setSubtitleCoating(?string $subtitleCoating): void
+    {
+        $this->subtitleCoating = $subtitleCoating;
+    }
+
+    public function getTitleDimensions(): ?string
+    {
+        return $this->titleDimensions;
+    }
+
+    public function setTitleDimensions(?string $titleDimensions): void
+    {
+        $this->titleDimensions = $titleDimensions;
+    }
+
+    public function getSubtitleDimensions(): ?string
+    {
+        return $this->subtitleDimensions;
+    }
+
+    public function setSubtitleDimensions(?string $subtitleDimensions): void
+    {
+        $this->subtitleDimensions = $subtitleDimensions;
+    }
+
+    public function getTitleClosure(): ?string
+    {
+        return $this->titleClosure;
+    }
+
+    public function setTitleClosure(?string $titleClosure): void
+    {
+        $this->titleClosure = $titleClosure;
+    }
+
+    public function getSubtitleClosure(): ?string
+    {
+        return $this->subtitleClosure;
+    }
+
+    public function setSubtitleClosure(?string $subtitleClosure): void
+    {
+        $this->subtitleClosure = $subtitleClosure;
+    }
+
+    public function getTitleAccessories(): ?string
+    {
+        return $this->titleAccessories;
+    }
+
+    public function setTitleAccessories(?string $titleAccessories): void
+    {
+        $this->titleAccessories = $titleAccessories;
+    }
+
+    public function getSubtitleAccessories(): ?string
+    {
+        return $this->subtitleAccessories;
+    }
+
+    public function setSubtitleAccessories(?string $subtitleAccessories): void
+    {
+        $this->subtitleAccessories = $subtitleAccessories;
+    }
+
+    public function getTitleNotes(): ?string
+    {
+        return $this->titleNotes;
+    }
+
+    public function setTitleNotes(?string $titleNotes): void
+    {
+        $this->titleNotes = $titleNotes;
+    }
+
+    public function getSubtitleNotes(): ?string
+    {
+        return $this->subtitleNotes;
+    }
+
+    public function setSubtitleNotes(?string $subtitleNotes): void
+    {
+        $this->subtitleNotes = $subtitleNotes;
+    }
+
+    public function getCreatedAt(): \DateTimeInterface
     {
         return $this->createdAt;
     }

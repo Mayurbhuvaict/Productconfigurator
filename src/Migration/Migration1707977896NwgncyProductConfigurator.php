@@ -32,20 +32,31 @@ class Migration1707977896NwgncyProductConfigurator extends MigrationStep
 
         #Mian parent table translation
         $connection->executeStatement("
-              CREATE TABLE `prod_conf_tran` (
-                `title` VARCHAR(255) NOT NULL,
-                `subtitle` VARCHAR(255) NULL,
-                `created_at` DATETIME(3) NOT NULL,
-                `updated_at` DATETIME(3) NULL,
-                `prod_conf_id` BINARY(16) NOT NULL,
-                `language_id` BINARY(16) NOT NULL,
-                PRIMARY KEY (`prod_conf_id`,`language_id`),
-                KEY `fk.prod_conf_tran.prod_conf_id` (`prod_conf_id`),
-                KEY `fk.prod_conf_tran.language_id` (`language_id`),
-                CONSTRAINT `fk.prod_conf_tran.prod_conf_id` FOREIGN KEY (`prod_conf_id`) REFERENCES `prod_conf` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-                CONSTRAINT `fk.prod_conf_tran.language_id` FOREIGN KEY (`language_id`) REFERENCES `language` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
+            CREATE TABLE `prod_conf_translation` (
+            `title` VARCHAR(255) NOT NULL,
+            `subtitle` VARCHAR(255) NULL,
+            `title_material` VARCHAR(255) NULL,
+            `subtitle_material` VARCHAR(255) NULL,
+            `title_coating` VARCHAR(255) NULL,
+            `subtitle_coating` VARCHAR(255) NULL,
+            `title_dimensions` VARCHAR(255) NULL,
+            `subtitle_dimensions` VARCHAR(255) NULL,
+            `title_closure` VARCHAR(255) NULL,
+            `subtitle_closure` VARCHAR(255) NULL,
+            `title_accessories` VARCHAR(255) NULL,
+            `subtitle_accessories` VARCHAR(255) NULL,
+            `title_notes` VARCHAR(255) NULL,
+            `subtitle_notes` VARCHAR(255) NULL,
+            `created_at` DATETIME(3) NOT NULL,
+            `updated_at` DATETIME(3) NULL,
+            `prod_conf_id` BINARY(16) NOT NULL,
+            `language_id` BINARY(16) NOT NULL,
+            PRIMARY KEY (`prod_conf_id`,`language_id`),
+            KEY `fk.prod_conf_translation.prod_conf_id` (`prod_conf_id`),
+            KEY `fk.prod_conf_translation.language_id` (`language_id`),
+            CONSTRAINT `fk.prod_conf_translation.prod_conf_id` FOREIGN KEY (`prod_conf_id`) REFERENCES `prod_conf` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+            CONSTRAINT `fk.prod_conf_translation.language_id` FOREIGN KEY (`language_id`) REFERENCES `language` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
         ");
 
         #Form table
@@ -67,7 +78,7 @@ class Migration1707977896NwgncyProductConfigurator extends MigrationStep
 
         #Form table translation
         $connection->executeStatement("
-                CREATE TABLE `prod_conf_form_tran` (
+                CREATE TABLE `prod_conf_form_translation` (
                 `name` VARCHAR(255) NULL,
                 `description` VARCHAR(255) NULL,
                 `tooltip` VARCHAR(255) NULL,
@@ -76,10 +87,10 @@ class Migration1707977896NwgncyProductConfigurator extends MigrationStep
                 `prod_conf_form_id` BINARY(16) NOT NULL,
                 `language_id` BINARY(16) NOT NULL,
                 PRIMARY KEY (`prod_conf_form_id`,`language_id`),
-                KEY `fk.prod_conf_form_tran.prod_conf_form_id` (`prod_conf_form_id`),
-                KEY `fk.prod_conf_form_tran.language_id` (`language_id`),
-                CONSTRAINT `fk.prod_conf_form_tran.prod_conf_form_id` FOREIGN KEY (`prod_conf_form_id`) REFERENCES `prod_conf_form` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-                CONSTRAINT `fk.prod_conf_form_tran.language_id` FOREIGN KEY (`language_id`) REFERENCES `language` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+                KEY `fk.prod_conf_form_translation.prod_conf_form_id` (`prod_conf_form_id`),
+                KEY `fk.prod_conf_form_translation.language_id` (`language_id`),
+                CONSTRAINT `fk.prod_conf_form_translation.prod_conf_form_id` FOREIGN KEY (`prod_conf_form_id`) REFERENCES `prod_conf_form` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+                CONSTRAINT `fk.prod_conf_form_translation.language_id` FOREIGN KEY (`language_id`) REFERENCES `language` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
         ");
 
@@ -99,7 +110,7 @@ class Migration1707977896NwgncyProductConfigurator extends MigrationStep
 
         #Material table translation
         $connection->executeStatement("
-                CREATE TABLE `prod_conf_mat_trans` (
+                CREATE TABLE `prod_conf_mat_translation` (
                     `title` VARCHAR(255) NULL,
                     `tooltip` VARCHAR(255) NULL,
                     `created_at` DATETIME(3) NOT NULL,
@@ -107,10 +118,10 @@ class Migration1707977896NwgncyProductConfigurator extends MigrationStep
                     `prod_conf_mat_id` BINARY(16) NOT NULL,
                     `language_id` BINARY(16) NOT NULL,
                     PRIMARY KEY (`prod_conf_mat_id`,`language_id`),
-                    KEY `fk.prod_conf_mat_trans.prod_conf_mat_id` (`prod_conf_mat_id`),
-                    KEY `fk.prod_conf_mat_trans.language_id` (`language_id`),
-                    CONSTRAINT `fk.prod_conf_mat_trans.prod_conf_mat_id` FOREIGN KEY (`prod_conf_mat_id`) REFERENCES `prod_conf_mat` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-                    CONSTRAINT `fk.prod_conf_mat_trans.language_id` FOREIGN KEY (`language_id`) REFERENCES `language` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+                    KEY `fk.prod_conf_mat_translation.prod_conf_mat_id` (`prod_conf_mat_id`),
+                    KEY `fk.prod_conf_mat_translation.language_id` (`language_id`),
+                    CONSTRAINT `fk.prod_conf_mat_translation.prod_conf_mat_id` FOREIGN KEY (`prod_conf_mat_id`) REFERENCES `prod_conf_mat` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+                    CONSTRAINT `fk.prod_conf_mat_translation.language_id` FOREIGN KEY (`language_id`) REFERENCES `language` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
                 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
         ");
 
@@ -147,17 +158,17 @@ class Migration1707977896NwgncyProductConfigurator extends MigrationStep
 
         #Dimension table translation
         $connection->executeStatement("
-                CREATE TABLE `prod_conf_dime_tran` (
+                CREATE TABLE `prod_conf_dime_translation` (
                 `title` VARCHAR(255) NULL,
                 `created_at` DATETIME(3) NOT NULL,
                 `updated_at` DATETIME(3) NULL,
                 `prod_conf_dime_id` BINARY(16) NOT NULL,
                 `language_id` BINARY(16) NOT NULL,
                 PRIMARY KEY (`prod_conf_dime_id`,`language_id`),
-                KEY `fk.prod_conf_dime_tran.prod_conf_dime_id` (`prod_conf_dime_id`),
-                KEY `fk.prod_conf_dime_tran.language_id` (`language_id`),
-                CONSTRAINT `fk.prod_conf_dime_tran.prod_conf_dime_id` FOREIGN KEY (`prod_conf_dime_id`) REFERENCES `prod_conf_dime` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-                CONSTRAINT `fk.prod_conf_dime_tran.language_id` FOREIGN KEY (`language_id`) REFERENCES `language` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+                KEY `fk.prod_conf_dime_translation.prod_conf_dime_id` (`prod_conf_dime_id`),
+                KEY `fk.prod_conf_dime_translation.language_id` (`language_id`),
+                CONSTRAINT `fk.prod_conf_dime_translation.prod_conf_dime_id` FOREIGN KEY (`prod_conf_dime_id`) REFERENCES `prod_conf_dime` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+                CONSTRAINT `fk.prod_conf_dime_translation.language_id` FOREIGN KEY (`language_id`) REFERENCES `language` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
         ");
 
@@ -169,7 +180,7 @@ class Migration1707977896NwgncyProductConfigurator extends MigrationStep
                 `min_width` DOUBLE NULL,
                 `min_depth` DOUBLE NULL,
                 `prod_conf_id` BINARY(16) NOT NULL,
-                `media_id` BINARY(16) NULL,
+                `lock_media_id` BINARY(16) NULL,
                 `created_at` DATETIME(3) NOT NULL,
                 `updated_at` DATETIME(3) NULL,
                 PRIMARY KEY (`id`),
@@ -178,9 +189,11 @@ class Migration1707977896NwgncyProductConfigurator extends MigrationStep
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
         ");
 
+
+
         #Lock table translation
         $connection->executeStatement("
-              CREATE TABLE `prod_conf_lock_tran` (
+              CREATE TABLE `prod_conf_lock_translation` (
                 `title` VARCHAR(255) NOT NULL,
                 `description` VARCHAR(255) NULL,
                 `tooltip` VARCHAR(255) NULL,
@@ -189,10 +202,10 @@ class Migration1707977896NwgncyProductConfigurator extends MigrationStep
                 `prod_conf_lock_id` BINARY(16) NOT NULL,
                 `language_id` BINARY(16) NOT NULL,
                 PRIMARY KEY (`prod_conf_lock_id`,`language_id`),
-                KEY `fk.prod_conf_lock_tran.prod_conf_lock_id` (`prod_conf_lock_id`),
-                KEY `fk.prod_conf_lock_tran.language_id` (`language_id`),
-                CONSTRAINT `fk.prod_conf_lock_tran.prod_conf_lock_id` FOREIGN KEY (`prod_conf_lock_id`) REFERENCES `prod_conf_lock` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-                CONSTRAINT `fk.prod_conf_lock_tran.language_id` FOREIGN KEY (`language_id`) REFERENCES `language` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+                KEY `fk.prod_conf_lock_translation.prod_conf_lock_id` (`prod_conf_lock_id`),
+                KEY `fk.prod_conf_lock_translation.language_id` (`language_id`),
+                CONSTRAINT `fk.prod_conf_lock_translation.prod_conf_lock_id` FOREIGN KEY (`prod_conf_lock_id`) REFERENCES `prod_conf_lock` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+                CONSTRAINT `fk.prod_conf_lock_translation.language_id` FOREIGN KEY (`language_id`) REFERENCES `language` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
         ");
@@ -214,18 +227,18 @@ class Migration1707977896NwgncyProductConfigurator extends MigrationStep
 
         #Accessories table translation
         $connection->executeStatement("
-               CREATE TABLE `prod_conf_acce_tran` (
+            CREATE TABLE `prod_conf_acce_translation` (
                 `title` VARCHAR(255) NULL,
                 `tooltip` VARCHAR(255) NULL,
                 `created_at` DATETIME(3) NOT NULL,
                 `updated_at` DATETIME(3) NULL,
-                `prod_conf_form_id` BINARY(16) NOT NULL,
+                `prod_conf_acce_id` BINARY(16) NOT NULL,
                 `language_id` BINARY(16) NOT NULL,
-                PRIMARY KEY (`prod_conf_form_id`,`language_id`),
-                KEY `fk.prod_conf_acce_tran.prod_conf_form_id` (`prod_conf_form_id`),
-                KEY `fk.prod_conf_acce_tran.language_id` (`language_id`),
-                CONSTRAINT `fk.prod_conf_acce_tran.prod_conf_form_id` FOREIGN KEY (`prod_conf_form_id`) REFERENCES `prod_conf_form` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-                CONSTRAINT `fk.prod_conf_acce_tran.language_id` FOREIGN KEY (`language_id`) REFERENCES `language` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+                PRIMARY KEY (`prod_conf_acce_id`,`language_id`),
+                KEY `fk.prod_conf_acce_translation.prod_conf_acce_id` (`prod_conf_acce_id`),
+                KEY `fk.prod_conf_acce_translation.language_id` (`language_id`),
+                CONSTRAINT `fk.prod_conf_acce_translation.prod_conf_acce_id` FOREIGN KEY (`prod_conf_acce_id`) REFERENCES `prod_conf_acce` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+                CONSTRAINT `fk.prod_conf_acce_translation.language_id` FOREIGN KEY (`language_id`) REFERENCES `language` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
         ");
     }

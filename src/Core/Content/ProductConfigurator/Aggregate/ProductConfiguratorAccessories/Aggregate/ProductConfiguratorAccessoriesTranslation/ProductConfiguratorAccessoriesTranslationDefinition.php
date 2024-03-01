@@ -2,14 +2,14 @@
 
 namespace NwgncyProductConfigurator\Core\Content\ProductConfigurator\Aggregate\ProductConfiguratorAccessories\Aggregate\ProductConfiguratorAccessoriesTranslation;
 
-use NwgncyProductConfigurator\Core\Content\ProductConfigurator\Aggregate\ProductConfiguratorForm\ProductConfiguratorFormDefinition;
+use NwgncyProductConfigurator\Core\Content\ProductConfigurator\Aggregate\ProductConfiguratorAccessories\ProductConfiguratorAccessoriesDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityTranslationDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\StringField;
 use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
 
 class ProductConfiguratorAccessoriesTranslationDefinition extends EntityTranslationDefinition
 {
-    public const ENTITY_NAME = 'prod_conf_acce_tran';
+    public const ENTITY_NAME = 'prod_conf_acce_translation';
 
     public function getEntityName(): string
     {
@@ -28,7 +28,7 @@ class ProductConfiguratorAccessoriesTranslationDefinition extends EntityTranslat
 
     public function getParentDefinitionClass(): string
     {
-        return ProductConfiguratorFormDefinition::class;
+        return ProductConfiguratorAccessoriesDefinition::class;
     }
 
     public function defineFields(): FieldCollection

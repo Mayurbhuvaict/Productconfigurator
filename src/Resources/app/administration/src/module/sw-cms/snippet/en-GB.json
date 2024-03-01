@@ -1,0 +1,23 @@
+{
+  "sw-cms": {
+    "blocks": {
+      "form": {
+        "label" : "Product configuration form",
+        "name" : "Product configuration form",
+        "submit" : "Submit"
+      }
+    },
+    "elements": {
+      "form": {
+        "name" : "Product configuration form"
+      },
+      "preview": {
+        "name": "Product configuration form"
+      }
+    },
+    "productConfiguration": {
+      "title" : "Configure your storage box according to your wishes.",
+      "sub-title": "A customized storage box in just 7 steps."
+    }
+  }
+}

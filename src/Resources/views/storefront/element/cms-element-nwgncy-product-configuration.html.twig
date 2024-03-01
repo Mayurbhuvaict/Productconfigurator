@@ -1,0 +1,436 @@
+{% block element_nwgncy_product_configuration %}
+    <form action=""
+          method="post"
+          class=""
+    >
+
+        {% set nwgncyProductConfiger =  page.extensions.nwgncyProductConfiger %}
+        {% for nwgncyProductConfiger in nwgncyProductConfiger.Elements %}
+            {% block element_nwgncy_product_configuration_title %}
+                <h2 class="nwgncy-product-configuration-title">
+                    {{ "sw-cms.productConfiguration.title"|trans|sw_sanitize }}
+                </h2>
+            {% endblock %}
+
+            {% block element_nwgncy_product_configuration_sub_title %}
+                <h2 class="nwgncy-product-configuration-sub-title">
+                    {{ "sw-cms.productConfiguration.subtitle"|trans|sw_sanitize }}
+                </h2>
+            {% endblock %}
+
+            <div class="accordion" id="accordionPanelsStayOpenExample">
+                <!--Accordion 1-->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
+                                aria-controls="panelsStayOpen-collapseOne">
+                            <h4>{{ nwgncyProductConfiger.title }}</h4>
+                        </button>
+                    </h2>
+
+                    <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show"
+                         aria-labelledby="panelsStayOpen-headingOne">
+                        <div class="accordion-body row">
+                            <!-- STEP 1 Design -->
+                            <p>{{ nwgncyProductConfiger.subtitle }}</p>
+                            {% for productConfiguratorForms in nwgncyProductConfiger.productConfiguratorForms %}
+                                <div class="col-4">
+                                    <div class="grid">
+                                        <label class="card">
+                                            <input name="design" value="{{ productConfiguratorForms.id }}" class="radio"
+                                                   type="radio">
+                                            <span class="plan-details">
+                                              {% block nwgncy_product_configuration_design_image %}
+                                                  <!--media-->
+                                                  {% set bundleHeaderImageCollection = searchMedia([productConfiguratorForms.formMediaId], context.context) %}
+                                                  {% set bundleHederImage = bundleHeaderImageCollection.get(productConfiguratorForms.formMediaId) %}
+                                                  {% block element_image_container_design %}
+                                                      <img style="width: 100%" src="{{ bundleHederImage.url }}"
+                                                           alt="{{ ' image' }}">
+                                                  {% endblock %}
+                                                  <!--title-->
+                                                  {% block nwgncy_product_configuration_design_image_title %}
+                                                  <h3>{{ productConfiguratorForms.translated.name }}</h3>
+                                              {% endblock %}
+                                                  <!--tooltip optional-->
+                                                  {% block nwgncy_product_configuration_design_tooltip %}
+                                                  <p>{{ productConfiguratorForms.translated.tooltip }}</p>
+                                              {% endblock %}
+
+                                                  <!--description-->
+                                                  {% block nwgncy_product_configuration_design_image_description %}
+                                                  <p>{{ productConfiguratorForms.translated.description }}</p>
+                                              {% endblock %}
+                                              {% endblock %}
+                                            </span>
+                                        </label>
+
+                                    </div>
+
+                                </div>
+                            {% endfor %}
+                            <!-- STEP 1 -->
+                        </div>
+                    </div>
+                </div>
+                <!--Accordion 1-->
+
+                <!--Accordion 2-->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
+                                aria-controls="panelsStayOpen-collapseTwo">
+                            <h4>{{ nwgncyProductConfiger.titleMaterial }}</h4>
+                        </button>
+                    </h2>
+                    <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse"
+                         aria-labelledby="panelsStayOpen-headingTwo">
+                        <div class="accordion-body row">
+                            <!-- STEP 2 Material -->
+                            <p>{{ nwgncyProductConfiger.subtitleMaterial }}</p>
+                            {% for productConfiguratorMaterial in nwgncyProductConfiger.productConfiguratorMaterials %}
+                                <div class="col-4">
+                                    <div class="grid">
+                                        <label class="card">
+                                            <input name="material" class="radio" type="radio" checked>
+                                            <span class="plan-details">
+                                          {% block nwgncy_product_configuration_material_image %}
+                                              <!--media-->
+                                              {% set productConfiguratorMaterialImageCollection = searchMedia([productConfiguratorMaterial.materialMediaId], context.context) %}
+                                              {% set productConfiguratorMaterialImageCollectionImage = productConfiguratorMaterialImageCollection.get(productConfiguratorMaterial.materialMediaId) %}
+                                              {% block element_image_container_material %}
+                                                  <img style="width: 100%"
+                                                       src="{{ productConfiguratorMaterialImageCollectionImage.url }}"
+                                                       alt="{{ ' image' }}">
+                                              {% endblock %}
+                                                <!--title-->
+                                              {% block nwgncy_product_configuration_material_image_title %}
+                                              <h3>{{ productConfiguratorMaterial.translated.title }}</h3>
+                                          {% endblock %}
+                                              <!--tooltip optional-->
+                                              {% block nwgncy_product_configuration_material_tooltip %}
+                                              <p>{{ productConfiguratorMaterial.translated.tooltip }}</p>
+                                          {% endblock %}
+                                          {% endblock %}
+                                    </span>
+                                        </label>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            <!-- STEP 2 Material -->
+                        </div>
+                    </div>
+                </div>
+                <!--Accordion 2-->
+
+                <!--Accordion 3-->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false"
+                                aria-controls="panelsStayOpen-collapseThree">
+                            <h4>{{ nwgncyProductConfiger.titleCoating }}</h4>
+                        </button>
+                    </h2>
+                    <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse"
+                         aria-labelledby="panelsStayOpen-headingThree">
+                        <div class="accordion-body ">
+                            <!-- STEP 3 Coating -->
+                            <p>{{ nwgncyProductConfiger.subtitleCoating }}</p>
+                            <div class="row" data-coating-input>
+                                {% for productConfiguratorCoatings in nwgncyProductConfiger.productConfiguratorCoatings %}
+                                    {% if productConfiguratorCoatings.withoutCoating %}
+                                        <div class="col-4">
+                                            <div class="grid">
+                                                <label class="card">
+                                                    <input name="coatingType" class="radio coatingType" type="radio"
+                                                           checked value="1">
+                                                    <span class="plan-details">
+                                                        {% block nwgncy_product_configuration_coating_without_coating %}
+                                                            <h5>{{ "nwgncy-product-configuration.detail.withoutCoating"|trans|sw_sanitize }}</h5>
+                                                        {% endblock %}
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+
+                                    {% if productConfiguratorCoatings.powderCoating %}
+                                        <div class="col-4">
+                                            <div class="grid">
+                                                <label class="card">
+                                                    <input name="coatingType" class="radio coatingType" type="radio"
+                                                           value="2">
+                                                    <span class="plan-details">
+                                                        {% block nwgncy_product_configuration_coating_without_powder_coating %}
+                                                            <h5>{{ "nwgncy-product-configuration.detail.powderCoating"|trans|sw_sanitize }}</h5>
+                                                        {% endblock %}
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+
+                                    {% if productConfiguratorCoatings.wetPainting %}
+                                        <div class="col-4">
+                                            <div class="grid">
+                                                <label class="card">
+                                                    <input name="coatingType" class="radio coatingType" type="radio"
+                                                           value="3">
+                                                    <span class="plan-details">
+                                                        {% block nwgncy_product_configuration_coating_without_wet_painting %}
+                                                            <h5>{{ "nwgncy-product-configuration.detail.wetPainting"|trans|sw_sanitize }}</h5>
+                                                        {% endblock %}
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+
+                            <div class="coatingTypOption" id="coatingTypOption">
+                                {# withoutCoatingOption #}
+                                <div class="row" id="withoutCoatingOption">
+                                    <div class="col-2">
+                                        <div class="grid">
+                                            <label class="card">
+                                                <input name="withoutCoating" class="radio" type="radio" checked>
+                                                <span class="plan-details">
+                                                    <h5>{{ "nwgncy-product-configuration.detail.withoutCoatingStainedLabel"|trans|sw_sanitize }}</h5>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="grid">
+                                            <label class="card">
+                                                <input name="withoutCoating" class="radio" type="radio">
+                                                <span class="plan-details">
+                                                    <h5>{{ "nwgncy-product-configuration.detail.withoutCoatingBrushedLabel"|trans|sw_sanitize }}</h5>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="grid">
+                                            <label class="card">
+                                                <input name="withoutCoating" class="radio" type="radio">
+                                                <span class="plan-details">
+                                                    <h5>{{ "nwgncy-product-configuration.detail.withoutCoatingUnchallengedLabel"|trans|sw_sanitize }}</h5>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {# powderCoatingOption #}
+                                <div class="row d-none" id="powderCoatingOption">
+                                    <div class="col-2">
+                                        <div class="grid">
+                                            <label class="card">
+                                                <input name="powderCoating" class="radio" type="radio" checked>
+                                                <span class="plan-details">
+                                        <h5>{{ "nwgncy-product-configuration.detail.powderCoatingOptionOne"|trans|sw_sanitize }}</h5>
+                                    </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="grid">
+                                            <label class="card">
+                                                <input name="powderCoating" class="radio" type="radio" >
+                                                <span class="plan-details">
+                                        <h5>{{ "nwgncy-product-configuration.detail.powderCoatingOptionTwo"|trans|sw_sanitize }}</h5>
+                                    </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="grid">
+                                            <label class="card">
+                                                <input name="powderCoating" class="radio" type="radio" >
+                                                <span class="plan-details">
+                                        <h5>{{ "nwgncy-product-configuration.detail.powderCoatingOptionThree"|trans|sw_sanitize }}</h5>
+                                    </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="grid">
+                                            <select class="form-select form-select-sm card plan-details"
+                                                    name="sort"
+                                                    id="SpecialColor">
+                                                <option value="powderCoatingSpecialColorOne" selected>
+                                                    {{ "nwgncy-product-configuration.detail.powderCoatingSpecialColorOne"|trans|sw_sanitize }}
+                                                </option>
+                                                <option value="powderCoatingSpecialColorTwo">
+                                                    {{ "nwgncy-product-configuration.detail.powderCoatingSpecialColorTwo"|trans|sw_sanitize }}
+                                                </option>
+                                                <option value="powderCoatingSpecialColorThree">
+                                                    {{ "nwgncy-product-configuration.detail.powderCoatingSpecialColorThree"|trans|sw_sanitize }}
+                                                </option>
+                                                <option value="powderCoatingSpecialColorFour">
+                                                    {{ "nwgncy-product-configuration.detail.powderCoatingSpecialColorFour"|trans|sw_sanitize }}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {# wetPaintingOption #}
+                                <div class="row d-none" id="wetPaintingOption">
+                                    <div class="col-4">
+                                        <div class="grid">
+                                            <label class="card">
+                                                <input name="wetPaintingPaintOptional" class="radio" type="radio"
+                                                       checked>
+                                                <span class="plan-details">
+                                                    <h5>{{ "nwgncy-product-configuration.detail.wetPaintingPaintOptional"|trans|sw_sanitize }}</h5>
+                                                    <input type="text" name="wetPaintingPaintOptional">
+                                                    <p>{{ "nwgncy-product-configuration.detail.wetPaintingPaintOptionalHintText"|trans|sw_sanitize }}</p>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- STEP 3 Coating -->
+                        </div>
+                    </div>
+                </div>
+                <!--Accordion 3-->
+            </div>
+        {% endfor %}
+        
+    </form>
+
+    <style>
+
+        :root {
+            --card-line-height: 1.2em;
+            --card-padding: 1em;
+            --card-radius: 0.5em;
+            --color-green: #2194FF;
+            --color-gray: #e2ebf6;
+            --color-dark-gray: #c4d1e1;
+            --radio-border-width: 2px;
+            --radio-size: 1.5em;
+        }
+
+        .grid {
+            display: grid;
+            grid-gap: var(--card-padding);
+            margin: 0 auto;
+            max-width: 60em;
+            padding: 0;
+
+            @media (min-width: 42em) {
+                /*grid-template-columns: repeat(1, 1fr);*/
+            }
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: var(--card-radius);
+            position: relative;
+
+            &:hover {
+                box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.15);
+            }
+        }
+
+        .radio {
+            font-size: inherit;
+            margin: 0;
+            position: absolute;
+            right: calc(var(--card-padding) + var(--radio-border-width));
+            top: calc(var(--card-padding) + var(--radio-border-width));
+        }
+
+        @supports (-webkit-appearance: none) or (-moz-appearance: none) {
+            .radio {
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                background: #fff;
+                border: var(--radio-border-width) solid var(--color-gray);
+                border-radius: 50%;
+                cursor: pointer;
+                height: var(--radio-size);
+                outline: none;
+                transition: background 0.2s ease-out,
+                border-color 0.2s ease-out;
+                width: var(--radio-size);
+
+                &::after {
+                    border: var(--radio-border-width) solid #fff;
+                    border-top: 0;
+                    border-left: 0;
+                    content: '';
+                    display: block;
+                    height: 0.75rem;
+                    left: 25%;
+                    position: absolute;
+                    top: 50%;
+                    transform: rotate(45deg) translate(-50%, -50%);
+                    width: 0.375rem;
+                }
+
+                &:checked {
+                    background: var(--color-green);
+                    border-color: var(--color-green);
+                }
+            }
+
+            .card:hover .radio {
+                border-color: var(--color-dark-gray);
+
+                &:checked {
+                    border-color: var(--color-green);
+                }
+            }
+        }
+
+        .plan-details {
+            border: var(--radio-border-width) solid var(--color-gray);
+            border-radius: var(--card-radius);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            padding: var(--card-padding);
+            transition: border-color 0.2s ease-out;
+        }
+
+        .card:hover .plan-details {
+            border-color: var(--color-dark-gray);
+        }
+
+        .radio:checked ~ .plan-details {
+            border-color: var(--color-green);
+        }
+
+        .radio:focus ~ .plan-details {
+            box-shadow: 0 0 0 2px var(--color-dark-gray);
+        }
+
+        .radio:disabled ~ .plan-details {
+            color: var(--color-dark-gray);
+            cursor: default;
+        }
+
+        .radio:disabled ~ .plan-details .plan-type {
+            color: var(--color-dark-gray);
+        }
+
+        .card:hover .radio:disabled ~ .plan-details {
+            border-color: var(--color-gray);
+            box-shadow: none;
+        }
+
+        .card:hover .radio:disabled {
+            border-color: var(--color-gray);
+        }
+    </style>
+{% endblock %}

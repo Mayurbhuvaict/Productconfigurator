@@ -1,0 +1,254 @@
+/*
+Basic styles
+==================================================
+Contains the imports to all basic styles.
+
+The file organization follows the 7-1 pattern architecture
+https://sass-guidelin.es/#the-7-1-pattern
+*/
+
+/*
+ * Variables, Mixins, Functions
+ * ---------------------------- */
+@import 'variables';
+@import 'abstract/mixins/truncate-multiline';
+@import 'abstract/functions/feature';
+//@import "element/nwgncy-product-config";
+/*
+ * Skin variables
+ * ---------- */
+
+/*
+ * Vendors
+ * ------- */
+@import 'vendor/bootstrap';
+@import 'vendor/tiny-slider';
+@import 'vendor/datepicker';
+
+/*
+ * Base stuff
+ * ---------- */
+@import 'base/base';
+@import 'base/reboot';
+
+/*
+ * Components
+ * ---------- */
+@import 'component/alert';
+@import 'component/card';
+@import 'component/category-navigation';
+@import 'component/backdrop';
+@import 'component/base-slider';
+@import 'component/image-slider';
+@import 'component/product-slider';
+@import 'component/gallery-slider';
+@import 'component/magnifier';
+@import 'component/zoom-modal';
+@import 'component/offcanvas';
+@import 'component/product-box';
+@import 'component/loader';
+@import 'component/modal';
+@import 'component/flags';
+@import 'component/icon';
+@import 'component/pagination';
+@import 'component/cms-sections';
+@import 'component/cms-block';
+@import 'component/cms-element';
+@import 'component/cms-form-confirmation';
+@import 'component/forms';
+@import 'component/address-editor';
+@import 'component/sorting';
+@import 'component/delivery-status';
+@import 'component/quickview-modal';
+@import 'component/payment-method';
+@import 'component/shipping-method';
+@import 'component/filter-panel';
+@import 'component/filter-multi-select';
+@import 'component/filter-property-select';
+@import 'component/filter-boolean';
+@import 'component/filter-range';
+@import 'component/filter-rating-select';
+@import 'component/product-feature';
+@import 'component/notification-dot';
+@import 'component/product-wishlist';
+@import 'component/quantity-selector';
+@import 'component/basic-captcha';
+@import 'component/line-item';
+@import 'component/visibility';
+@import 'component/ar-overlay';
+
+/*
+ * Layout-related sections
+ * ----------------------- */
+@import 'layout/container';
+@import 'layout/top-bar';
+@import 'layout/header';
+@import 'layout/header-minimal';
+@import 'layout/footer';
+@import 'layout/main-navigation';
+@import 'layout/navigation-flyout';
+@import 'layout/navigation-offcanvas';
+@import 'layout/offcanvas-cart';
+@import 'layout/account-menu';
+@import 'layout/search-suggest';
+@import 'layout/cookie-permission';
+@import 'layout/cookie-configuration';
+@import 'layout/scroll-up';
+@import 'layout/recaptcha';
+
+/*
+ * Page-specific styles
+ * -------------------- */
+@import 'page/product-detail/product-detail';
+@import 'page/product-detail/configurator';
+@import 'page/product-detail/tabs';
+@import 'page/product-detail/review';
+
+@import 'page/account/account';
+@import 'page/account/address';
+@import 'page/account/overview';
+@import 'page/account/register';
+@import 'page/account/order';
+@import 'page/account/edit-order';
+@import 'page/account/order-detail';
+
+@import 'page/checkout/checkout';
+@import 'page/checkout/aside';
+@import 'page/checkout/cart';
+@import 'page/checkout/register';
+@import 'page/checkout/confirm';
+@import 'page/checkout/finish';
+
+/** @deprecated tag:v6.7.0 - File "_breadcrumb.scss" will be removed without replacement. Bootstrap container styles are used instead. */
+@import 'page/content/breadcrumb';
+
+@import 'page/search/search';
+
+@import 'page/wishlist/wishlist';
+
+
+
+//
+//:root {
+//  --card-line-height: 1.2em;
+//  --card-padding: 1em;
+//  --card-radius: 0.5em;
+//  --color-green: #558309;
+//  --color-gray: #e2ebf6;
+//  --color-dark-gray: #c4d1e1;
+//  --radio-border-width: 2px;
+//  --radio-size: 1.5em;
+//}
+//
+//.grid {
+//  display: grid;
+//  grid-gap: var(--card-padding);
+//  margin: 0 auto;
+//  max-width: 60em;
+//  padding: 0;
+//
+//  @media (min-width: 42em) {
+//    grid-template-columns: repeat(3, 1fr);
+//  }
+//}
+//
+//.card {
+//  background-color: #fff;
+//  border-radius: var(--card-radius);
+//  position: relative;
+//
+//  &:hover {
+//    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.15);
+//  }
+//}
+//
+//.radio {
+//  font-size: inherit;
+//  margin: 0;
+//  position: absolute;
+//  right: calc(var(--card-padding) + var(--radio-border-width));
+//  top: calc(var(--card-padding) + var(--radio-border-width));
+//}
+//
+//@supports (-webkit-appearance: none) or (-moz-appearance: none) {
+//  .radio {
+//    -webkit-appearance: none;
+//    -moz-appearance: none;
+//    background: #fff;
+//    border: var(--radio-border-width) solid var(--color-gray);
+//    border-radius: 50%;
+//    cursor: pointer;
+//    height: var(--radio-size);
+//    outline: none;
+//    transition: background 0.2s ease-out,
+//    border-color 0.2s ease-out;
+//    width: var(--radio-size);
+//
+//    &::after {
+//      border: var(--radio-border-width) solid #fff;
+//      border-top: 0;
+//      border-left: 0;
+//      content: '';
+//      display: block;
+//      height: 0.75rem;
+//      left: 25%;
+//      position: absolute;
+//      top: 50%;
+//      transform: rotate(45deg) translate(-50%, -50%);
+//      width: 0.375rem;
+//    }
+//
+//    &:checked {
+//      background: var(--color-green);
+//      border-color: var(--color-green);
+//    }
+//  }
+//
+//  .card:hover .radio {
+//    border-color: var(--color-dark-gray);
+//
+//    &:checked {
+//      border-color: var(--color-green);
+//    }
+//  }
+//}
+//
+//.plan-details {
+//  border: var(--radio-border-width) solid var(--color-gray);
+//  border-radius: var(--card-radius);
+//  cursor: pointer;
+//  display: flex;
+//  flex-direction: column;
+//  padding: var(--card-padding);
+//  transition: border-color 0.2s ease-out;
+//}
+//
+//.card:hover .plan-details {
+//  border-color: var(--color-dark-gray);
+//}
+//
+//.radio:checked ~ .plan-details {
+//  border-color: var(--color-green);
+//}
+//
+//.radio:focus ~ .plan-details {
+//  box-shadow: 0 0 0 2px var(--color-dark-gray);
+//}
+//
+//.radio:disabled ~ .plan-details {
+//  color: var(--color-dark-gray);
+//  cursor: default;
+//}
+//
+//.radio:disabled ~ .plan-details .plan-type {
+//  color: var(--color-dark-gray);
+//}
+//
+//.card:hover .radio:disabled ~ .plan-details {
+//  border-color: var(--color-gray);
+//  box-shadow: none;
+//}
+//
+//.card:hover .radio:disabled {
+//  border-color: var(--color-gray);
+//}

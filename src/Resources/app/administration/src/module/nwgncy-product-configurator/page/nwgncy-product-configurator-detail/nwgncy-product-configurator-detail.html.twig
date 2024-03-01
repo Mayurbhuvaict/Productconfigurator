@@ -1,0 +1,644 @@
+{% block nwgncy_product_configurator_detail %}
+    <sw-page class="nwgncy-product-configurator-detail">
+        {% block nwgncy_product_configurator_detail_header %}
+            <template #smart-bar-header>
+                <h2>{{ $tc('nwgncy-product-configurator.general.mainMenuItemGeneral') }}</h2>
+            </template>
+        {% endblock %}
+
+        {% block nwgncy_product_configurator_detail_actions %}
+            <template #smart-bar-actions>
+
+                <!-- eslint-disable-next-line sw-deprecation-rules/no-twigjs-blocks -->
+                {% block nwgncy_product_configurator_detail_actions_save %}
+                    <sw-button-process
+                            v-model:processSuccess="isSaveSuccessful"
+                            class="nwgncy-product-configurator-detail__save-action"
+                            variant="primary"
+                            @click.prevent="onClickSave"
+                    >
+                        {{ $tc('global.default.save') }}
+                    </sw-button-process>
+                {% endblock %}
+
+            </template>
+        {% endblock %}
+
+        {% block nwgncy_product_configurator_detail_language_switch %}
+            <template #language-switch>
+                <sw-language-switch
+                        :disabled="prodId == null"
+                        :save-changes-function="saveOnLanguageChange"
+                        :abort-change-function="abortOnLanguageChange"
+                        @on-change="onChangeLanguage"
+                />
+            </template>
+        {% endblock %}
+
+        {% block nwgncy_product_configurator_detail_content %}
+            <template #content>
+                {% block nwgncy_product_configurator_detail_cardview %}
+                    <sw-card-view>
+
+                        <template v-if="nwgncyIsLoading">
+                            <sw-skeleton variant="detail-bold"/>
+                            <sw-skeleton/>
+                        </template>
+
+                        <template v-else>
+
+                            {% block nwgncy_product_configurator_detail_title_card %}
+                                <sw-card
+                                        position-identifier="nwgncy-product-configurator-detail-base-general"
+                                        class="nwgncy-product-configurator-detail-base__card-general"
+                                        :title="$tc('nwgncy-product-configurator.detail.step.one.cardTitle')"
+                                >
+
+                                    {% block nwgncy_product_configurator_detail_base_general_card_title_container %}
+                                        <sw-container
+                                                columns="1fr"
+                                                gap="0 32px"
+                                        >
+                                            {% block nwgncy_product_configurator_detail_base_general_card_title_lable %}
+                                                <sw-text-field
+                                                        v-model:value="productConfigurator.title"
+                                                        class="nwgncy-product-configurator-detail-base__field-titlelabel"
+                                                        :label="$tc('nwgncy-product-configurator.detail.step.one.titleLabel')"
+                                                        required
+                                                        name="title"
+                                                        :placeholder="placeholder(productConfigurator, 'title', $tc('nwgncy-product-configurator.detail.step.one.titleLabel'))"
+                                                />
+                                            {% endblock %}
+
+                                            {% block nwgncy_product_configurator_detail_base_general_card_title_subtitle_label %}
+                                                <sw-text-field
+                                                        v-model:value="productConfigurator.subtitle"
+                                                        class="nwgncy-product-configurator-detail-base__field-Subtitlelabel"
+                                                        :label="$tc('nwgncy-product-configurator.detail.step.one.SubTitleLabel')"
+                                                        :placeholder="placeholder(productConfigurator, 'name', $tc('nwgncy-product-configurator.detail.step.one.SubTitleLabel'))"
+                                                />
+                                            {% endblock %}
+                                        </sw-container>
+                                    {% endblock %}
+                                </sw-card>
+                            {% endblock %}
+
+                            {% block nwgncy_product_configurator_detail_step_one_design_type %}
+                                <sw-card
+                                        v-if="prodId"
+                                        position-identifier="nwgncy-product-configurator-detail-base-general"
+                                        class="nwgncy-product-configurator-detail-base__card-general"
+                                        :title="$tc('nwgncy-product-configurator.detail.step.one.cardStepOneDesignType')"
+                                        v-for="(productConfiguratorForm, key, index) in productConfigurator.productConfiguratorForms"
+                                        :key="index"
+                                >
+                                    <sw-container
+                                            columns="1fr"
+                                            gap="0 32px"
+                                    >
+                                        <div>
+
+                                            <div class="sw-product-detail-cross-selling__context-button">
+                                                <sw-context-button>
+                                                    <!-- eslint-disable-next-line sw-deprecation-rules/no-twigjs-blocks -->
+                                                    {% block sw_product_cross_selling_form_context_button_delete %}
+                                                        <sw-context-menu-item
+                                                                variant="danger"
+                                                                class="sw-product-cross_selling-context-item__delete-action"
+                                                                @click="removeConfiguratorForms($event, productConfiguratorForm , index)"
+                                                        >
+                                                            {{ $tc('sw-product.crossselling.buttonDeleteCrossSelling') }}
+                                                        </sw-context-menu-item>
+                                                    {% endblock %}
+                                                </sw-context-button>
+                                            </div>
+
+                                            <sw-media-upload-v2
+                                                    :label="$tc('nwgncy-product-configurator.detail.imageLabel')"
+                                                    variant="regular"
+                                                    :uploadTag="uploadTag + '-' + index"
+                                                    :source="previewSource(productConfiguratorForm)"
+                                                    :allowMultiSelect="false"
+                                                    @media-upload-sidebar-open="onOpenMediaModal"
+                                                    @media-upload-remove-image="onUnlinkLogo($event, productConfiguratorForm)"
+                                            />
+
+                                            <sw-upload-listener
+                                                    :uploadTag="uploadTag + '-' + index"
+                                                    autoUpload
+                                                    @media-upload-finish="onImageUpload($event, productConfiguratorForm)"
+                                            />
+
+                                            <sw-media-modal-v2
+                                                    v-if="showMediaModal"
+                                                    :allow-multi-select="false"
+                                                    :initial-folder-id="mediaDefaultFolderId"
+                                                    @modal-close="showMediaModal = false"
+                                                    @media-modal-selection-change="onMediaSelectionChange($event, productConfiguratorForm)"
+                                            />
+
+                                            <sw-text-field
+                                                    class="nwgncy-product-configurator-detail-base__field-Subtitlelabel"
+                                                    :label="$tc('nwgncy-product-configurator.detail.step.one.titleLabel')"
+                                                    v-model:value="productConfiguratorForm.name"
+                                                    :placeholder="placeholder(productConfigurator, 'name', $tc('nwgncy-product-configurator.detail.step.one.titleLabel'))"
+                                            />
+
+                                            <sw-text-editor
+                                                    :label="$tc('nwgncy-product-configurator.detail.step.one.description')"
+                                                    :placeholder="placeholder(productConfigurator, 'description', $tc('nwgncy-product-configurator.detail.step.one.description'))"
+                                                    name="description"
+                                                    sanitize-input
+                                                    v-model:value="productConfiguratorForm.description"
+                                                    sanitize-field-name="product_configurator_translation.description"
+                                            />
+
+                                            <sw-text-field
+                                                    class="nwgncy-product-configurator-detail-base__field-Subtitlelabel"
+                                                    :label="$tc('nwgncy-product-configurator.detail.step.one.toolTipText')"
+                                                    v-model:value="productConfiguratorForm.tooltip"
+                                                    :placeholder="placeholder(productConfigurator, 'name', $tc('nwgncy-product-configurator.detail.step.one.toolTipText'))"
+                                            />
+
+                                            <sw-text-field
+                                                    class="nwgncy-product-configurator-detail-base__field-Subtitlelabel"
+                                                    :label="$tc('nwgncy-product-configurator.detail.step.one.minHeight')"
+                                                    v-model:value="productConfiguratorForm.height"
+                                                    :placeholder="placeholder(productConfigurator, 'name', $tc('nwgncy-product-configurator.detail.step.one.minHeight'))"
+                                            />
+                                            <sw-text-field
+                                                    class="nwgncy-product-configurator-detail-base__field-Subtitlelabel"
+                                                    :label="$tc('nwgncy-product-configurator.detail.step.one.minWidth')"
+                                                    v-model:value="productConfiguratorForm.width"
+                                                    :placeholder="placeholder(productConfigurator, 'name', $tc('nwgncy-product-configurator.detail.step.one.minWidth'))"
+                                            />
+                                            <sw-text-field
+                                                    class="nwgncy-product-configurator-detail-base__field-Subtitlelabel"
+                                                    :label="$tc('nwgncy-product-configurator.detail.step.one.minDepth')"
+                                                    v-model:value="productConfiguratorForm.depth"
+                                                    :placeholder="placeholder(productConfigurator, 'name', $tc('nwgncy-product-configurator.detail.step.one.minDepth'))"
+                                            />
+                                        </div>
+                                    </sw-container>
+                                </sw-card>
+
+                                <div class="nwgncy-product-configurator-button" v-if="prodId">
+                                    <sw-button
+                                            class=""
+                                            variant="ghost"
+                                            @click="onAddButton(null)"
+                                    >
+                                        {{ $tc('nwgncy-product-configurator.detail.step.one.addDesignType') }}
+                                    </sw-button>
+                                </div>
+                            {% endblock %}
+
+                            {% block nwgncy_product_configurator_detail_step_one_design_type %}
+                                <sw-card
+                                        v-if="prodId"
+                                        position-identifier="nwgncy-product-configurator-detail-base-general"
+                                        class="nwgncy-product-configurator-detail-base__card-general"
+                                        :title="$tc('nwgncy-product-configurator.detail.step.two.stepTwoCardTitle')"
+                                >
+
+                                    <!-- eslint-disable-next-line sw-deprecation-rules/no-twigjs-blocks -->
+                                    {% block nwgncy_product_configurator_detail_base_general_car %}
+                                        <sw-container
+                                                columns="1fr"
+                                                gap="0 32px"
+                                        >
+                                            <sw-text-field
+                                                    class="nwgncy-product-configurator-detail-base__field-titlelabel"
+                                                    :label="$tc('nwgncy-product-configurator.detail.step.one.titleLabel')"
+                                                    v-model:value="productConfigurator.titleMaterial"
+                                                    :placeholder="placeholder(productConfigurator, 'name', $tc('nwgncy-product-configurator.detail.step.one.titleLabel'))"
+                                            />
+
+                                            <sw-text-field
+                                                    class="nwgncy-product-configurator-detail-base__field-Subtitlelabel"
+                                                    :label="$tc('nwgncy-product-configurator.detail.step.one.SubTitleLabel')"
+                                                    v-model:value="productConfigurator.subtitleMaterial"
+                                                    :placeholder="placeholder(productConfigurator, 'name', $tc('nwgncy-product-configurator.detail.step.one.SubTitleLabel'))"
+                                            />
+
+                                        </sw-container>
+                                    {% endblock %}
+                                </sw-card>
+                            {% endblock %}
+
+                            {% block nwgncy_product_configurator_detail_step_two_design_type %}
+                                <sw-card
+                                        v-if="prodId"
+                                        position-identifier="nwgncy-product-configurator-detail-base-general"
+                                        class="nwgncy-product-configurator-detail-base__card-general"
+                                        :title="$tc('nwgncy-product-configurator.detail.step.two.cardStepTwoDesignType')"
+                                        v-for="(productConfiguratorMaterial, key, index) in productConfigurator.productConfiguratorMaterials"
+                                        :key="productConfiguratorMaterial.id"
+                                >
+
+                                    <!-- eslint-disable-next-line sw-deprecation-rules/no-twigjs-blocks -->
+                                    {% block nwgncy_product_configurator_detail_base_general_step_two_design_type_name %}
+                                        <sw-container
+                                                columns="1fr"
+                                                gap="0 32px"
+                                        >
+                                            <div>
+                                                {% block nwgncy_product_configurator_general_step_two_design_type_logo_upload %}
+                                                    <sw-media-upload-v2
+                                                            :label="$tc('nwgncy-product-configurator.detail.imageLabel')"
+                                                            variant="regular"
+                                                            :uploadTag="uploadTag + '-' + index"
+                                                            :source="previewSourceTwoDesignType(productConfiguratorMaterial)"
+                                                            :allowMultiSelect="false"
+                                                            @media-upload-sidebar-open="onOpenMediaModal"
+                                                            @media-upload-remove-image="onUnlinkLogoTwoDesignType($event, productConfiguratorMaterial)"
+                                                    />
+
+                                                    <sw-upload-listener
+                                                            :uploadTag="uploadTag + '-' + index"
+                                                            autoUpload
+                                                            @media-upload-finish="onImageUploadTwoDesignType($event, productConfiguratorMaterial)"
+                                                    />
+
+                                                    <sw-media-modal-v2
+                                                            v-if="showMediaModal"
+                                                            :allow-multi-select="false"
+                                                            :initial-folder-id="mediaDefaultFolderId"
+                                                            @modal-close="showMediaModal = false"
+                                                            @media-modal-selection-change="onMediaSelectionChangeTwoDesignType($event, productConfiguratorMaterial)"
+                                                    />
+                                                {% endblock %}
+
+                                                <sw-text-field
+                                                        class="nwgncy-product-configurator-detail-base__field-Subtitlelabel"
+                                                        :label="$tc('nwgncy-product-configurator.detail.step.one.titleLabel')"
+                                                        v-model:value="productConfiguratorMaterial.title"
+                                                        :placeholder="placeholder(productConfigurator, 'name', $tc('nwgncy-product-configurator.detail.step.one.titleLabel'))"
+                                                />
+
+
+                                                <sw-text-field
+                                                        class="nwgncy-product-configurator-detail-base__field-Subtitlelabel"
+                                                        :label="$tc('nwgncy-product-configurator.detail.step.one.toolTipText')"
+                                                        v-model:value="productConfiguratorMaterial.tooltip"
+                                                        :placeholder="placeholder(productConfigurator, 'name', $tc('nwgncy-product-configurator.detail.step.one.toolTipText'))"
+                                                />
+                                            </div>
+                                        </sw-container>
+                                    {% endblock %}
+                                </sw-card>
+                                <div class="nwgncy-product-configurator-button" v-if="prodId">
+                                    <sw-button
+                                            class="sw-product-detail-cross-selling__add-btn"
+                                            variant="ghost"
+                                            @click="onAddMaterial"
+                                    >
+                                        {{ $tc('nwgncy-product-configurator.detail.step.two.addMaterial') }}
+
+                                    </sw-button>
+                                </div>
+                            {% endblock %}
+
+                            {% block nwgncy_product_configurator_detail_step_three_coating %}
+                                <sw-card
+                                        v-if="prodId"
+                                        position-identifier="nwgncy-product-configurator-detail-base-general"
+                                        class="nwgncy-product-configurator-detail-base__card-general"
+                                        :title="$tc('nwgncy-product-configurator.detail.step.three.cardStepThreeDesignType')"
+                                >
+
+                                    <sw-container
+                                            columns="1fr"
+                                            gap="0 32px"
+                                    >
+                                        <sw-text-field
+                                                class="nwgncy-product-configurator-detail-base__field-titlelabel"
+                                                :label="$tc('nwgncy-product-configurator.detail.step.one.titleLabel')"
+                                                v-model:value="productConfigurator.titleCoating"
+                                                :placeholder="placeholder(productConfigurator, 'name', $tc('nwgncy-product-configurator.detail.step.one.titleLabel'))"
+                                        />
+
+                                        <sw-text-field
+                                                class="nwgncy-product-configurator-detail-base__field-Subtitlelabel"
+                                                :label="$tc('nwgncy-product-configurator.detail.step.one.SubTitleLabel')"
+                                                v-model:value="productConfigurator.subtitleCoating"
+                                                :placeholder="placeholder(productConfigurator, 'name', $tc('nwgncy-product-configurator.detail.step.one.SubTitleLabel'))"
+                                        />
+
+                                        <div>
+                                            <sw-switch-field
+                                                    v-model:value="productConfigurator.productConfiguratorCoatings[0].withoutCoating"
+                                                    name="sw-bulk-edit-save-modal-confirm-trigger-flows-switch"
+                                                    class="sw-bulk-edit-save-modal-confirm__trigger-flows-switch"
+                                                    :label="$tc('nwgncy-product-configurator.detail.step.three.switchWithoutCoating')"
+                                            />
+                                            <sw-switch-field
+                                                    v-model:value="productConfigurator.productConfiguratorCoatings[0].powderCoating"
+                                                    name="sw-bulk-edit-save-modal-confirm-trigger-flows-switcha"
+                                                    class="sw-bulk-edit-save-modal-confirm__trigger-flows-switch"
+                                                    :label="$tc('nwgncy-product-configurator.detail.step.three.switchPowderCoating')"
+                                            />
+                                            <sw-switch-field
+                                                    v-model:value="productConfigurator.productConfiguratorCoatings[0].wetPainting"
+                                                    name="sw-bulk-edit-save-modal-confirm-trigger-flows-switchsd"
+                                                    class="sw-bulk-edit-save-modal-confirm__trigger-flows-switch"
+                                                    :label="$tc('nwgncy-product-configurator.detail.step.three.switchWetPainting')"
+                                            />
+                                        </div>
+                                    </sw-container>
+
+                                </sw-card>
+                            {% endblock %}
+
+                            {% block nwgncy_product_configurator_detail_step_four_dimensions %}
+                                <sw-card
+                                        v-if="prodId"
+                                        position-identifier="nwgncy-product-configurator-detail-base-general"
+                                        class="nwgncy-product-configurator-detail-base__card-general"
+                                        :title="$tc('nwgncy-product-configurator.detail.step.four.stepFourCardTitle')"
+                                >
+
+                                    <sw-container
+                                            columns="1fr"
+                                            gap="0 32px"
+                                    >
+                                        <sw-text-field
+                                                class="nwgncy-product-configurator-detail-base__field-titlelabel"
+                                                :label="$tc('nwgncy-product-configurator.detail.step.one.titleLabel')"
+                                                v-model:value="productConfigurator.titleDimensions"
+                                                :placeholder="placeholder(productConfigurator, 'name', $tc('nwgncy-product-configurator.detail.step.one.titleLabel'))"
+                                        />
+
+                                        <sw-text-field
+                                                class="nwgncy-product-configurator-detail-base__field-Subtitlelabel"
+                                                :label="$tc('nwgncy-product-configurator.detail.step.one.SubTitleLabel')"
+                                                v-model:value="productConfigurator.subtitleDimensions"
+                                                :placeholder="placeholder(productConfigurator, 'name', $tc('nwgncy-product-configurator.detail.step.one.SubTitleLabel'))"
+                                        />
+
+
+                                        <sw-text-field
+                                                class="nwgncy-product-configurator-detail-base__field-titlelabel"
+                                                :label="$tc('nwgncy-product-configurator.detail.step.one.titleLabel')"
+                                                v-model:value="productConfigurator.productConfiguratorDimensions[0].title"
+                                                :placeholder="placeholder(productConfigurator, 'name', $tc('nwgncy-product-configurator.detail.step.one.titleLabel'))"
+                                        />
+
+                                        <sw-media-upload-v2
+                                                :label="$tc('nwgncy-product-configurator.detail.imageLabel')"
+                                                variant="regular"
+                                                :uploadTag="uploadTag"
+                                                :source="previewSourceDimensions(productConfigurator.productConfiguratorDimensions)"
+                                                :allowMultiSelect="false"
+                                                @media-upload-sidebar-open="onOpenMediaModal"
+                                                @media-upload-remove-image="onUnlinkLogoDimensions($event, productConfigurator.productConfiguratorDimensions)"
+                                        />
+
+                                        <sw-upload-listener
+                                                :uploadTag="uploadTag"
+                                                autoUpload
+                                                @media-upload-finish="onImageUploadDimensions($event, productConfigurator.productConfiguratorDimensions)"
+                                        />
+
+                                        <sw-media-modal-v2
+                                                v-if="showMediaModal"
+                                                :allow-multi-select="false"
+                                                :initial-folder-id="mediaDefaultFolderId"
+                                                @modal-close="showMediaModal = false"
+                                                @media-modal-selection-change="onMediaSelectionChangeDimensions($event, productConfigurator.productConfiguratorDimensions)"
+                                        />
+                                    </sw-container>
+
+                                </sw-card>
+                            {% endblock %}
+
+                            {% block nwgncy_product_configurator_detail_step_five_closure_title_card %}
+                                <sw-card
+                                        v-if="prodId"
+                                        position-identifier="nwgncy-product-configurator-detail-base-general"
+                                        class="nwgncy-product-configurator-detail-base__card-general"
+                                        :title="$tc('nwgncy-product-configurator.detail.step.five.stepFiveCardTitle')"
+                                >
+
+                                    <sw-container
+                                            columns="1fr"
+                                            gap="0 32px"
+                                    >
+                                        <sw-text-field
+                                                class="nwgncy-product-configurator-detail-base__field-titlelabel"
+                                                :label="$tc('nwgncy-product-configurator.detail.step.one.titleLabel')"
+                                                v-model:value="productConfigurator.titleClosure"
+                                                :placeholder="placeholder(productConfigurator, 'name', $tc('nwgncy-product-configurator.detail.step.one.titleLabel'))"
+                                        />
+
+                                        <sw-text-field
+                                                class="nwgncy-product-configurator-detail-base__field-Subtitlelabel"
+                                                :label="$tc('nwgncy-product-configurator.detail.step.one.SubTitleLabel')"
+                                                v-model:value="productConfigurator.subtitleClosure"
+                                                :placeholder="placeholder(productConfigurator, 'name', $tc('nwgncy-product-configurator.detail.step.one.SubTitleLabel'))"
+                                        />
+                                    </sw-container>
+
+                                </sw-card>
+                            {% endblock %}
+
+                            {% block nwgncy_product_configurator_detail_step_five_closure_card %}
+                                <sw-card
+                                        v-if="prodId"
+                                        position-identifier="nwgncy-product-configurator-detail-base-general"
+                                        class="nwgncy-product-configurator-detail-base__card-general"
+                                        :title="$tc('nwgncy-product-configurator.detail.step.five.cardStepFiveClosure')"
+                                        v-for="(productConfiguratorLock, key, index) in productConfigurator.productConfiguratorLocks"
+                                        :key="productConfiguratorLock.id"
+                                >
+
+                                    <sw-container
+                                            columns="1fr"
+                                            gap="0 32px"
+                                    >
+
+                                        <sw-media-upload-v2
+                                                :label="$tc('nwgncy-product-configurator.detail.imageLabel')"
+                                                variant="regular"
+                                                :uploadTag="uploadTag + '-' + index"
+                                                :source="previewSourceLock(productConfiguratorLock)"
+                                                :allowMultiSelect="false"
+                                                @media-upload-sidebar-open="onOpenMediaModal"
+                                                @media-upload-remove-image="onUnlinkLogoLock($event, productConfiguratorLock)"
+                                        />
+
+                                        <sw-upload-listener
+                                                :uploadTag="uploadTag + '-' + index"
+                                                autoUpload
+                                                @media-upload-finish="onImageUploadLock($event, productConfiguratorLock)"
+                                        />
+
+                                        <sw-media-modal-v2
+                                                v-if="showMediaModal"
+                                                :allow-multi-select="false"
+                                                :initial-folder-id="mediaDefaultFolderId"
+                                                @modal-close="showMediaModal = false"
+                                                @media-modal-selection-change="onMediaSelectionChangeLock($event, productConfiguratorLock)"
+                                        />
+
+                                        <sw-text-field
+                                                class="nwgncy-product-configurator-detail-base__field-Subtitlelabel"
+                                                :label="$tc('nwgncy-product-configurator.detail.step.one.titleLabel')"
+                                                v-model:value="productConfiguratorLock.title"
+                                                :placeholder="placeholder(productConfigurator, 'name', $tc('nwgncy-product-configurator.detail.step.one.titleLabel'))"
+                                        />
+
+                                        <sw-text-editor
+                                                :label="$tc('nwgncy-product-configurator.detail.step.one.description')"
+                                                :placeholder="placeholder(productConfiguratorr, 'description', $tc('nwgncy-product-configurator.detail.step.one.description'))"
+                                                name="description"
+                                                sanitize-input
+                                                v-model:value="productConfiguratorLock.description"
+                                                sanitize-field-name="product_productConfigurator_translation.description"
+                                        />
+
+                                        <sw-text-field
+                                                class="nwgncy-product-configurator-detail-base__field-Subtitlelabel"
+                                                :label="$tc('nwgncy-product-configurator.detail.step.one.toolTipText')"
+                                                v-model:value="productConfiguratorLock.tooltip"
+                                                :placeholder="placeholder(productConfigurator, 'name', $tc('nwgncy-product-configurator.detail.step.one.toolTipText'))"
+                                        />
+
+                                        <sw-text-field
+                                                class="nwgncy-product-configurator-detail-base__field-Subtitlelabel"
+                                                :label="$tc('nwgncy-product-configurator.detail.step.one.minHeight')"
+                                                v-model:value="productConfiguratorLock.minHeight"
+                                                :placeholder="placeholder(productConfigurator, 'name', $tc('nwgncy-product-configurator.detail.step.one.minHeight'))"
+                                        />
+                                        <sw-text-field
+                                                class="nwgncy-product-configurator-detail-base__field-Subtitlelabel"
+                                                :label="$tc('nwgncy-product-configurator.detail.step.one.minWidth')"
+                                                v-model:value="productConfiguratorLock.minWidth"
+                                                :placeholder="placeholder(productConfigurator, 'name', $tc('nwgncy-product-configurator.detail.step.one.minWidth'))"
+                                        />
+                                        <sw-text-field
+                                                class="nwgncy-product-configurator-detail-base__field-Subtitlelabel"
+                                                :label="$tc('nwgncy-product-configurator.detail.step.one.minDepth')"
+                                                v-model:value="productConfiguratorLock.minDepth"
+                                                :placeholder="placeholder(productConfigurator, 'name', $tc('nwgncy-product-configurator.detail.step.one.minDepth'))"
+                                        />
+
+                                    </sw-container>
+
+                                </sw-card>
+                                <div class="nwgncy-product-configurator-button" v-if="prodId">
+                                    <sw-button
+                                            class="sw-product-detail-cross-selling__add-btn"
+                                            variant="ghost"
+                                            @click="onAddClosure"
+                                    >
+                                        {{ $tc('nwgncy-product-configurator.detail.step.five.addClosure') }}
+                                    </sw-button>
+                                </div>
+                            {% endblock %}
+
+                            {% block nwgncy_product_configurator_detail_step_six_sccessories_card %}
+                                <sw-card
+                                        v-if="prodId"
+                                        position-identifier="nwgncy-product-configurator-detail-base-general"
+                                        class="nwgncy-product-configurator-detail-base__card-general"
+                                        :title="$tc('nwgncy-product-configurator.detail.step.six.stepSixCardTitle')"
+                                >
+
+                                    <sw-container
+                                            columns="1fr"
+                                            gap="0 32px"
+                                    >
+                                        <sw-text-field
+                                                class="nwgncy-product-configurator-detail-base__field-titlelabel"
+                                                :label="$tc('nwgncy-product-configurator.detail.step.one.titleLabel')"
+                                                v-model:value="productConfigurator.titleAccessories"
+                                                :placeholder="placeholder(productConfigurator, 'name', $tc('nwgncy-product-configurator.detail.step.one.titleLabel'))"
+                                        />
+
+                                        <sw-text-field
+                                                class="nwgncy-product-configurator-detail-base__field-Subtitlelabel"
+                                                :label="$tc('nwgncy-product-configurator.detail.step.one.SubTitleLabel')"
+                                                v-model:value="productConfigurator.subtitleAccessories"
+                                                :placeholder="placeholder(productConfigurator, 'name', $tc('nwgncy-product-configurator.detail.step.one.SubTitleLabel'))"
+                                        />
+
+                                        <sw-media-upload-v2
+                                                :label="$tc('nwgncy-product-configurator.detail.imageLabel')"
+                                                variant="regular"
+                                                :uploadTag="uploadTag"
+                                                :source="previewSourceAccessoriess(productConfigurator.productConfiguratorAccessoriess)"
+                                                :allowMultiSelect="false"
+                                                @media-upload-sidebar-open="onOpenMediaModal"
+                                                @media-upload-remove-image="onUnlinkLogoAccessoriess($event, productConfigurator.productConfiguratorAccessoriess)"
+                                        />
+
+                                        <sw-upload-listener
+                                                :uploadTag="uploadTag"
+                                                autoUpload
+                                                @media-upload-finish="onImageUploadAccessoriess($event, productConfigurator.productConfiguratorAccessoriess)"
+                                        />
+
+                                        <sw-media-modal-v2
+                                                v-if="showMediaModal"
+                                                :allow-multi-select="false"
+                                                :initial-folder-id="mediaDefaultFolderId"
+                                                @modal-close="showMediaModal = false"
+                                                @media-modal-selection-change="onMediaSelectionChangeAccessoriess($event, productConfigurator.productConfiguratorAccessoriess)"
+                                        />
+
+                                        <sw-text-field
+                                                class="nwgncy-product-configurator-detail-base__field-titlelabel"
+                                                :label="$tc('nwgncy-product-configurator.detail.step.one.titleLabel')"
+                                                v-model:value="productConfigurator.productConfiguratorAccessoriess[0].title"
+                                                :placeholder="placeholder(productConfigurator, 'name', $tc('nwgncy-product-configurator.detail.step.one.titleLabel'))"
+                                        />
+
+                                        <sw-text-field
+                                                class="nwgncy-product-configurator-detail-base__field-Subtitlelabel"
+                                                :label="$tc('nwgncy-product-configurator.detail.step.one.toolTipText')"
+                                                v-model:value="productConfigurator.productConfiguratorAccessoriess[0].tooltip"
+                                                :placeholder="placeholder(productConfigurator, 'name', $tc('nwgncy-product-configurator.detail.step.one.toolTipText'))"
+                                        />
+                                    </sw-container>
+
+                                </sw-card>
+                            {% endblock %}
+
+                            {% block nwgncy_product_configurator_detail_step_seven_title_notes_card %}
+                                <sw-card
+                                        v-if="prodId"
+                                        position-identifier="nwgncy-product-configurator-detail-base-general"
+                                        class="nwgncy-product-configurator-detail-base__card-general"
+                                        :title="$tc('nwgncy-product-configurator.detail.step.seven.stepSevenCardTitle')"
+                                >
+
+                                    <sw-container
+                                            columns="1fr"
+                                            gap="0 32px"
+                                    >
+                                        <sw-text-field
+                                                class="nwgncy-product-configurator-detail-base__field-titlelabel"
+                                                :label="$tc('nwgncy-product-configurator.detail.step.one.titleLabel')"
+                                                v-model:value="productConfigurator.titleNotes"
+                                                :placeholder="placeholder(productConfigurator, 'name', $tc('nwgncy-product-configurator.detail.step.one.titleLabel'))"
+                                        />
+
+                                        <sw-text-field
+                                                class="nwgncy-product-configurator-detail-base__field-Subtitlelabel"
+                                                :label="$tc('nwgncy-product-configurator.detail.step.one.SubTitleLabel')"
+                                                v-model:value="productConfigurator.subtitleNotes"
+                                                :placeholder="placeholder(productConfigurator, 'name', $tc('nwgncy-product-configurator.detail.step.one.SubTitleLabel'))"
+                                        />
+                                    </sw-container>
+
+                                </sw-card>
+                            {% endblock %}
+                        </template>
+                    </sw-card-view>
+                {% endblock %}
+            </template>
+
+        {% endblock %}
+    </sw-page>
+{% endblock %}

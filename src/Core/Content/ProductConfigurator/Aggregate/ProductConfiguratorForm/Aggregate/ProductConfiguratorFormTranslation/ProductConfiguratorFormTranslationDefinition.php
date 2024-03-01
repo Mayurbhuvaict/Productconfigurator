@@ -9,7 +9,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
 
 class ProductConfiguratorFormTranslationDefinition extends EntityTranslationDefinition
 {
-    public const ENTITY_NAME = 'prod_conf_form_tran';
+    public const ENTITY_NAME = 'prod_conf_form_translation';
 
     public function getEntityName(): string
     {

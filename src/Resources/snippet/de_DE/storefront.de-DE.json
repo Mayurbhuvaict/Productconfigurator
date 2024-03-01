@@ -1,0 +1,9 @@
+{
+    "nwgncy-product-configuration": {
+        "detail": {
+            "withoutCoating": "ohne Beschichtung",
+            "powderCoating": "Pulverbeschichtung",
+            "wetPainting": "Nasslackierung"
+        }
+    }
+}

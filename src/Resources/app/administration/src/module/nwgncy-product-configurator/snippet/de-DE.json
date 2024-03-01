@@ -1,0 +1,52 @@
+{
+    "nwgncy-product-configurator": {
+        "general": {
+            "mainMenuItemGeneral": "Produkt-Konfigurator",
+            "descriptionTextModule": "Produkt-Konfigurator"
+        },
+        "detail": {
+            "imageLabel" : "Bild",
+            "step": {
+                "one" : {
+                    "cardTitle": "Schritt eins Titel",
+                    "cardStepOneDesignType": "Schritt eins Design-Typ",
+                    "titleLabel" : "Titel",
+                    "SubTitleLabel" : "Untertitel",
+                    "image": "Bild",
+                    "description" : "Beschreibung",
+                    "toolTipText": "Tooltip-Text",
+                    "minHeight": "Min. Höhe",
+                    "minWidth": "Min. Breite",
+                    "minDepth": "Min. Tiefe",
+                    "addDesignType": "Design-Typ hinzufügen"
+                },
+                "two" : {
+                    "stepTwoCardTitle": "Schritt zwei Titel",
+                    "cardStepTwoDesignType": "Schritt zwei Material",
+                    "addMaterial" : "Material hinzufügen"
+                },
+                "three" : {
+                    "stepThreeCardTitle": "Schritt drei Titel",
+                    "cardStepThreeDesignType": "Schritt drei Beschichtung",
+                    "switchWithoutCoating": "Ohne Beschichtung",
+                    "switchPowderCoating": "Pulverbeschichtung",
+                    "switchWetPainting": "Nasslackierung"
+                },
+                "four" : {
+                    "stepFourCardTitle": "Schritt Vier Dimensionen"
+                },
+                "five" : {
+                    "stepFiveCardTitle": "Schritt Fünf Titel",
+                    "cardStepFiveClosure" : "Schritt fünf Abschluss",
+                    "addClosure" : "Verschluss hinzufügen"
+                },
+                "six" : {
+                    "stepSixCardTitle" : "Step Six Zubehör"
+                },
+                "seven" : {
+                    "stepSevenCardTitle": "Schritt Sieben Notizen, Skizzen & Fotos"
+                }
+            }
+        }
+    }
+}

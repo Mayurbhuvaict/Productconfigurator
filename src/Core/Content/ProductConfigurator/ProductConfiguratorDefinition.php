@@ -48,6 +48,24 @@ class ProductConfiguratorDefinition extends EntityDefinition
                 (new TranslatedField('title'))->addFlags(new ApiAware()),
                 (new TranslatedField('subtitle'))->addFlags(new ApiAware()),
 
+                (new TranslatedField('titleMaterial'))->addFlags(new ApiAware()),
+                (new TranslatedField('subtitleMaterial'))->addFlags(new ApiAware()),
+
+                (new TranslatedField('titleCoating'))->addFlags(new ApiAware()),
+                (new TranslatedField('subtitleCoating'))->addFlags(new ApiAware()),
+
+                (new TranslatedField('titleDimensions'))->addFlags(new ApiAware()),
+                (new TranslatedField('subtitleDimensions'))->addFlags(new ApiAware()),
+
+                (new TranslatedField('titleClosure'))->addFlags(new ApiAware()),
+                (new TranslatedField('subtitleClosure'))->addFlags(new ApiAware()),
+
+                (new TranslatedField('titleAccessories'))->addFlags(new ApiAware()),
+                (new TranslatedField('subtitleAccessories'))->addFlags(new ApiAware()),
+
+                (new TranslatedField('titleNotes'))->addFlags(new ApiAware()),
+                (new TranslatedField('subtitleNotes'))->addFlags(new ApiAware()),
+
                 //Association for Forms STEP1
                 new OneToManyAssociationField('productConfiguratorForms', ProductConfiguratorFormDefinition::class, 'prod_conf_id'),
 

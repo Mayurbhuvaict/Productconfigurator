@@ -10,7 +10,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
 
 class ProductConfiguratorLockTranslationDefinition extends EntityTranslationDefinition
 {
-    public const ENTITY_NAME = 'prod_conf_lock_tran';
+    public const ENTITY_NAME = 'prod_conf_lock_translation';
 
     public function getEntityName(): string
     {
